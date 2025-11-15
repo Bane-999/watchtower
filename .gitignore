@@ -1,0 +1,16 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/vendor/bundle
+
+# rspec failure tracking
+.rspec_status
+
+/spec/dummy/vendor/bundle
+/spec/dummy/tmp
+/spec/dummy/log
