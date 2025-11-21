@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "watchtower/version"
-require "watchtower/configuration"
-require "watchtower/engine" if defined?(Rails)
+require 'watchtower/version'
+require 'watchtower/configuration'
+require 'watchtower/engine' if defined?(Rails)
 
 module Watchtower
   class Error < StandardError; end
