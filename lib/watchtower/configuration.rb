@@ -19,8 +19,8 @@ module Watchtower
     def initialize
       @current_actor_resolver = nil
       @ignored_exceptions = [
-        "ActionController::RoutingError",
-        "ActionController::UnknownFormat"
+        # "ActionController::RoutingError",
+        # "ActionController::UnknownFormat"
       ]
       @dashboard_auth_proc = nil
     end
