@@ -23,6 +23,13 @@ Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    - "db/**/*"
+
+Metrics/MethodLength:
+  Max: 50
+
 RSpec/ExampleLength:
   Max: 10
 
@@ -31,3 +38,4 @@ RSpec/MultipleExpectations:
 
 Lint/EmptyClass:
   Enabled: false
+
