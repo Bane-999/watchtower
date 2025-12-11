@@ -6,8 +6,9 @@ module Watchtower
 
     isolate_namespace Watchtower
 
-    config.generators do |g|
-      g.migration = true
+    initializer 'watchtower.append_migrations',
+                before: :load_config_initializers do |app|
+      app.config.paths['db/migrate'] << root.join('db/migrate').to_s unless app.root.to_s == root.to_s
     end
   end
 end
