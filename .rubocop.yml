@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
 
@@ -6,8 +6,16 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
   SuggestExtensions: false
+  Include:
+    - "app/**/*.rb"
+    - "config/**/*.rb"
+    - "db/**/*.rb"
+    - "lib/**/*.rb"
+    - "spec/**/*.rb"
+    - "Rakefile"
   Exclude:
     - "spec/dummy/**/*"
+    - "vendor/**/*"
     - "bin/**/*"
     - "*.gemspec"
     - "Gemfile"
@@ -38,4 +46,3 @@ RSpec/MultipleExpectations:
 
 Lint/EmptyClass:
   Enabled: false
-
