@@ -63,7 +63,7 @@ RSpec.describe Watchtower::Incident do
 
     it 'returns false when already resolved' do
       persisted.resolve!
-      expect(persisted.resolve!).to eq(false)
+      expect(persisted.resolve!).to be(false)
     end
   end
 

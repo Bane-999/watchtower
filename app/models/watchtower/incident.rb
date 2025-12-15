@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Watchtower
-  class Incident < ActiveRecord::Base
+  class Incident < ApplicationRecord
     self.table_name = 'watchtower_incidents'
 
     SEVERITIES = %w[low medium high critical].freeze
@@ -36,7 +36,7 @@ module Watchtower
     def resolve!
       return false if resolved?
 
-      update_columns(status: 'resolved', resolved_at: Time.current)
+      update_columns(status: 'resolved', resolved_at: Time.current) # rubocop:disable Rails/SkipsModelValidations
     end
   end
 end
