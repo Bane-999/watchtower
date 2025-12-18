@@ -2,6 +2,7 @@
 
 require 'watchtower/version'
 require 'watchtower/configuration'
+require 'watchtower/middleware'
 require 'watchtower/engine'
 
 module Watchtower
