@@ -32,6 +32,7 @@ Metrics/BlockLength:
     - "spec/**/*"
 
 Metrics/AbcSize:
+  Max: 30
   Exclude:
     - "db/**/*"
 
