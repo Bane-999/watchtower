@@ -10,5 +10,9 @@ module Watchtower
                 before: :load_config_initializers do |app|
       app.config.paths['db/migrate'] << root.join('db/migrate').to_s unless app.root.to_s == root.to_s
     end
+
+    initializer 'watchtower.middleware' do |app|
+      app.middleware.use Watchtower::Middleware
+    end
   end
 end
