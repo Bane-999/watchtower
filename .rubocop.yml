@@ -47,3 +47,6 @@ RSpec/MultipleExpectations:
 
 Lint/EmptyClass:
   Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
