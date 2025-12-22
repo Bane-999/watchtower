@@ -6,6 +6,7 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('dummy/config/environment', __dir__)
 
+require 'rails-controller-testing'
 require 'rspec/rails'
 require 'factory_bot_rails'
 
