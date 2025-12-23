@@ -99,7 +99,7 @@
     </table>
 
     <!-- Pagination -->
-    <% if @incidents.total_pages > 1 %>
+    <% if @incidents.respond_to?(:total_pages) && @incidents.total_pages > 1 %>
       <div class="px-5 py-4 border-t border-gray-800 flex items-center justify-between text-xs text-gray-500">
         <span>Page <%= @incidents.current_page %> of <%= @incidents.total_pages %></span>
         <div class="flex gap-2">
