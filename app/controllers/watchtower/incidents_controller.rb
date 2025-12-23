@@ -3,13 +3,10 @@
 module Watchtower
   class IncidentsController < ApplicationController
     def index
-      @incidents = Incident
-                   .order(occurred_at: :desc)
-                   .page(params[:page])
-                   .per(25)
-
+      @incidents = Incident.order(occurred_at: :desc)
       @incidents = @incidents.where(severity: params[:severity]) if params[:severity].present?
-      @incidents = @incidents.where(status: params[:status])     if params[:status].present?
+      @incidents = @incidents.where(status: params[:status]) if params[:status].present?
+      @incidents = paginate(@incidents)
 
       @open_count     = Incident.open.count
       @resolved_count = Incident.resolved.count
@@ -28,6 +25,14 @@ module Watchtower
       else
         redirect_to incident_path(@incident), alert: 'Incident is already resolved.'
       end
+    end
+
+    private
+
+    def paginate(scope)
+      return scope.page(params[:page]).per(25) if scope.respond_to?(:page)
+
+      scope.limit(25)
     end
   end
 end

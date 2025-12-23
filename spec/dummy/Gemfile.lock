@@ -4,6 +4,7 @@ PATH
     watchtower (0.1.0)
       actionpack (>= 7.1, < 8.1)
       activerecord (>= 7.1, < 8.1)
+      kaminari (~> 1.2)
       railties (>= 7.1, < 8.1)
 
 GEM
@@ -110,6 +111,18 @@ GEM
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     logger (1.7.0)
     loofah (2.25.1)
       crass (~> 1.0.2)
@@ -146,6 +159,8 @@ GEM
     psych (5.3.1)
       date
       stringio
+    puma (8.0.1)
+      nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)
     rack-session (2.1.2)
@@ -211,6 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   pg (~> 1.5)
+  puma
   rails (~> 7.1.3)
   watchtower!
 
