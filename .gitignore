@@ -16,3 +16,4 @@ spec/dummy/storage/
 spec/dummy/.env
 spec/dummy/db/migrate/
 spec/dummy/db/schema.rb
+spec/dummy/vendor/**/**
