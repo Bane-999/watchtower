@@ -1,4 +1,4 @@
-# 🗼 Watchtower
+# <img src="app/assets/images/watchtower/watchtower_icon.svg" alt="Watchtower Icon" width="200" height="200">
 
 Watchtower is a drop-in immutable incident log and dashboard for Rails apps.
 
