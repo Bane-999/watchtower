@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Watchtower::ApplicationController, type: :controller do
-  controller(described_class) do
+  controller(Watchtower::ApplicationController) do
     def index
       render plain: 'ok'
     end

@@ -4,7 +4,9 @@ module Watchtower
   class IncidentsController < ApplicationController
     def index
       @incidents = Incident.order(occurred_at: :desc)
-      @incidents = @incidents.where(severity: params[:severity]) if params[:severity].present?
+      if params[:severity].present?
+        @incidents = @incidents.where(severity: params[:severity])
+      end
       @incidents = @incidents.where(status: params[:status]) if params[:status].present?
       @incidents = paginate(@incidents)
 

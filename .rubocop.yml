@@ -3,24 +3,42 @@ plugins:
   - rubocop-rspec
 
 AllCops:
-  NewCops: enable
+  DisplayCopNames: true
+  NewCops: disable
   TargetRubyVersion: 3.2
   SuggestExtensions: false
-  Include:
-    - "app/**/*.rb"
-    - "config/**/*.rb"
-    - "db/**/*.rb"
-    - "lib/**/*.rb"
-    - "spec/**/*.rb"
-    - "Rakefile"
   Exclude:
-    - "spec/dummy/**/*"
-    - "vendor/**/*"
     - "bin/**/*"
-    - "*.gemspec"
-    - "Gemfile"
+    - "db/schema.rb"
+    - "spec/dummy/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+
+Rails:
+  Enabled: true
+
+Layout/LineLength:
+  Max: 90
+  Exclude:
+    - "app/views/**/*"
+    - "db/migrate/**/*"
+    - "spec/**/*"
+
+Layout/HashAlignment:
+  EnforcedColonStyle: key
+  EnforcedHashRocketStyle: table
+  EnforcedLastArgumentHashStyle: always_inspect
+
+Layout/ExtraSpacing:
+  AllowForAlignment: true
 
 Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
@@ -29,7 +47,7 @@ Style/FrozenStringLiteralComment:
 
 Metrics/BlockLength:
   Exclude:
-    - "spec/**/*"
+    - "spec/**/*.rb"
 
 Metrics/AbcSize:
   Max: 30
@@ -37,13 +55,27 @@ Metrics/AbcSize:
     - "db/**/*"
 
 Metrics/MethodLength:
-  Max: 50
+  Max: 30
+  Exclude:
+    - "spec/**/*.rb"
+    - "db/**/*"
+
+Metrics/ClassLength:
+  Max: 150
+  Exclude:
+    - "spec/**/*.rb"
+
+Metrics/ModuleLength:
+  Max: 150
 
 RSpec/ExampleLength:
   Max: 10
 
 RSpec/MultipleExpectations:
-  Max: 3
+  Max: 5
+
+RSpec/DescribedClass:
+  Enabled: false
 
 Lint/EmptyClass:
   Enabled: false
