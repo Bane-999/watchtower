@@ -2,77 +2,123 @@
 
 require 'rails_helper'
 
-RSpec.describe Watchtower::IncidentsController, type: :controller do
-  routes { Watchtower::Engine.routes }
-
+RSpec.describe 'Watchtower incidents', type: :request do
   before { Watchtower.reset_configuration! }
 
-  describe 'GET #index' do
-    let!(:open_incident)     { create(:watchtower_incident, status: 'open',     severity: 'high') }
-    let!(:resolved_incident) { create(:watchtower_incident, status: 'resolved', severity: 'low') }
-    let!(:critical_incident) { create(:watchtower_incident, status: 'open',     severity: 'critical') }
+  describe 'GET /watchtower/incidents' do
+    before do
+      create(
+        :watchtower_incident,
+        exception_class: 'OpenIncidentError',
+        exception_message: 'Open incident message',
+        status: 'open',
+        severity: 'high'
+      )
+
+      create(
+        :watchtower_incident,
+        exception_class: 'ResolvedIncidentError',
+        exception_message: 'Resolved incident message',
+        status: 'resolved',
+        severity: 'low'
+      )
+
+      create(
+        :watchtower_incident,
+        exception_class: 'CriticalIncidentError',
+        exception_message: 'Critical incident message',
+        status: 'open',
+        severity: 'critical'
+      )
+    end
 
     it 'returns http success' do
-      get :index
+      get '/watchtower/incidents'
+
       expect(response).to have_http_status(:ok)
     end
 
-    it 'assigns @incidents' do
-      get :index
-      expect(assigns(:incidents)).to include(open_incident, resolved_incident, critical_incident)
-    end
+    it 'renders the incidents list and summary counts' do
+      get '/watchtower/incidents'
 
-    it 'assigns correct counts' do
-      get :index
-      expect(assigns(:open_count)).to eq(2)
-      expect(assigns(:resolved_count)).to eq(1)
-      expect(assigns(:critical_count)).to eq(1)
+      expect(response.body).to include(
+        'OpenIncidentError',
+        'ResolvedIncidentError',
+        'CriticalIncidentError'
+      )
+
+      summary_text = response_text(response.body)
+
+      expect(summary_text).to include('Open', 'Resolved', 'Critical')
+      expect(summary_text).to include('2', '1')
     end
 
     it 'filters by severity' do
-      get :index, params: { severity: 'critical' }
-      expect(assigns(:incidents)).to include(critical_incident)
-      expect(assigns(:incidents)).not_to include(open_incident)
+      get '/watchtower/incidents', params: { severity: 'critical' }
+
+      expect(response.body).to include('CriticalIncidentError')
+      expect(response.body).not_to include('OpenIncidentError')
+      expect(response.body).not_to include('ResolvedIncidentError')
     end
 
     it 'filters by status' do
-      get :index, params: { status: 'resolved' }
-      expect(assigns(:incidents)).to include(resolved_incident)
-      expect(assigns(:incidents)).not_to include(open_incident)
+      get '/watchtower/incidents', params: { status: 'resolved' }
+
+      expect(response.body).to include('ResolvedIncidentError')
+      expect(response.body).not_to include('OpenIncidentError')
+      expect(response.body).not_to include('CriticalIncidentError')
     end
   end
 
-  describe 'GET #show' do
-    let!(:incident) { create(:watchtower_incident) }
+  describe 'GET /watchtower/incidents/:id' do
+    let!(:incident) do
+      create(
+        :watchtower_incident,
+        exception_class: 'ShownIncidentError',
+        exception_message: 'Shown incident message'
+      )
+    end
 
     it 'returns http success' do
-      get :show, params: { id: incident.id }
+      get "/watchtower/incidents/#{incident.id}"
+
       expect(response).to have_http_status(:ok)
     end
 
-    it 'assigns @incident' do
-      get :show, params: { id: incident.id }
-      expect(assigns(:incident)).to eq(incident)
+    it 'renders the incident details' do
+      get "/watchtower/incidents/#{incident.id}"
+
+      expect(response.body).to include('ShownIncidentError', 'Shown incident message')
     end
   end
 
-  describe 'PATCH #resolve' do
-    let!(:incident) { create(:watchtower_incident, status: 'open') }
+  describe 'PATCH /watchtower/incidents/:id/resolve' do
+    let!(:incident) do
+      create(:watchtower_incident, status: 'open')
+    end
 
     it 'resolves the incident' do
-      patch :resolve, params: { id: incident.id }
+      patch "/watchtower/incidents/#{incident.id}/resolve"
+
       expect(incident.reload.status).to eq('resolved')
     end
 
     it 'redirects to index' do
-      patch :resolve, params: { id: incident.id }
-      expect(response).to redirect_to(incidents_path)
+      patch "/watchtower/incidents/#{incident.id}/resolve"
+
+      expect(response).to redirect_to('/watchtower/incidents')
     end
 
-    it 'redirects back with alert when already resolved' do
+    it 'redirects back to the incident when already resolved' do
       incident.resolve!
-      patch :resolve, params: { id: incident.id }
-      expect(response).to redirect_to(incident_path(incident))
+
+      patch "/watchtower/incidents/#{incident.id}/resolve"
+
+      expect(response).to redirect_to("/watchtower/incidents/#{incident.id}")
     end
+  end
+
+  def response_text(body)
+    Nokogiri::HTML.parse(body).text.squish
   end
 end
