@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Watchtower::Incident do
-  subject(:incident) { build(:watchtower_incident) }
+  let(:incident) { build(:watchtower_incident) }
 
   describe 'validations' do
-    it { is_expected.to be_valid }
+    it 'is valid' do
+      expect(incident).to be_valid
+    end
 
     it 'requires exception_class' do
       incident.exception_class = nil
@@ -69,7 +71,7 @@ RSpec.describe Watchtower::Incident do
 
   describe 'scopes' do
     before do
-      create(:watchtower_incident, status: 'open',     severity: 'critical')
+      create(:watchtower_incident, status: 'open', severity: 'critical')
       create(:watchtower_incident, status: 'resolved', severity: 'low')
     end
 

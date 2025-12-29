@@ -40,19 +40,19 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "railties",     ">= 7.1", "< 8.1"
-  spec.add_dependency "activerecord", ">= 7.1", "< 8.1"
   spec.add_dependency "actionpack",   ">= 7.1", "< 8.1"
+  spec.add_dependency "activerecord", ">= 7.1", "< 8.1"
+  spec.add_dependency "railties",     ">= 7.1", "< 8.1"
 
   spec.add_development_dependency "bundler",       "~> 2.0"
-  spec.add_development_dependency "pg",            "~> 1.5"
-  spec.add_development_dependency "rake",          "~> 13.0"
-  spec.add_development_dependency "rspec-rails",   "~> 6.0"
+  spec.add_development_dependency "factory_bot_rails", "~> 6.0"
+  spec.add_development_dependency "pg", "~> 1.5"
+  spec.add_development_dependency "rack", "~> 3.0"
   spec.add_development_dependency "rails-controller-testing", "~> 1.0"
-  spec.add_development_dependency "rubocop",       "~> 1.60"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec-rails", "~> 6.0"
+  spec.add_development_dependency "rubocop", "~> 1.60"
   spec.add_development_dependency "rubocop-rails", "~> 2.23"
   spec.add_development_dependency "rubocop-rspec", "~> 3.5"
-  spec.add_development_dependency "factory_bot_rails", "~> 6.0"
-  spec.add_development_dependency "rack", "~> 3.0"
   spec.add_dependency "kaminari", "~> 1.2"
 end

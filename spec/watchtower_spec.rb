@@ -13,14 +13,14 @@ RSpec.describe Watchtower do
     end
 
     it 'delegates to IncidentRecorder' do
-      described_class.record_incident(exception)
+      Watchtower.record_incident(exception)
 
       expect(Watchtower::IncidentRecorder).to have_received(:record)
         .with(exception, context: {})
     end
 
     it 'passes context through' do
-      described_class.record_incident(exception, context: { order_id: 1 })
+      Watchtower.record_incident(exception, context: { order_id: 1 })
 
       expect(Watchtower::IncidentRecorder).to have_received(:record)
         .with(exception, context: { order_id: 1 })

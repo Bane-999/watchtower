@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Watchtower' do
   describe Watchtower::Configuration do
-    subject(:config) { described_class.new }
+    let(:config) { Watchtower::Configuration.new }
 
     describe 'defaults' do
       it 'has no current_actor_resolver' do
@@ -41,29 +41,29 @@ RSpec.describe 'Watchtower' do
 
   describe Watchtower do
     describe '.configure' do
-      after { described_class.reset_configuration! }
+      after { Watchtower.reset_configuration! }
 
       it 'yields the configuration object' do
-        described_class.configure do |config|
+        Watchtower.configure do |config|
           expect(config).to be_a(Watchtower::Configuration)
         end
       end
 
       it 'persists configuration changes' do
-        described_class.configure do |config|
+        Watchtower.configure do |config|
           config.current_actor { 'admin' }
         end
 
-        resolver = described_class.configuration.current_actor_resolver
+        resolver = Watchtower.configuration.current_actor_resolver
         expect(resolver.call).to eq('admin')
       end
 
       it 'can add to ignored_exceptions' do
-        described_class.configure do |config|
+        Watchtower.configure do |config|
           config.ignored_exceptions << 'MyApp::CustomError'
         end
 
-        expect(described_class.configuration.ignored_exceptions).to include('MyApp::CustomError')
+        expect(Watchtower.configuration.ignored_exceptions).to include('MyApp::CustomError')
       end
     end
   end
