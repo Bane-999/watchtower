@@ -37,6 +37,7 @@ jobs:
       - name: Set up database
         working-directory: spec/dummy
         env:
+          BUNDLE_GEMFILE: ${{ github.workspace }}/Gemfile
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres

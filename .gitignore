@@ -1,4 +1,4 @@
-/.bundle/
+.bundle/
 /.yardoc
 /_yardoc/
 /coverage/
@@ -11,6 +11,7 @@
 .rspec_status
 
 spec/dummy/log/
+spec/dummy/.bundle/
 spec/dummy/tmp/
 spec/dummy/storage/
 spec/dummy/.env
