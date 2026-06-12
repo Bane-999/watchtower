@@ -92,6 +92,8 @@ Visit `/watchtower` (or wherever you mounted the engine).
 - **Detail view** — full backtrace, request context, actor, params, metadata
 - **Resolve** — mark incidents as resolved
 
+![Watchtower](public/screenshot01.png)
+
 ---
 
 ## Manual capture
